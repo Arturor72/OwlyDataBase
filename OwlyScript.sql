@@ -203,6 +203,19 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`Ejercicio` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `mydb`.`Curso`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`Curso` ;
+
+CREATE  TABLE IF NOT EXISTS `mydb`.`Curso` (
+  `curId` INT NOT NULL AUTO_INCREMENT ,
+  `curCod` VARCHAR(16) NOT NULL ,
+  `curDes` TEXT NOT NULL ,
+  PRIMARY KEY (`curId`) ,
+  UNIQUE INDEX `curCod_UNIQUE` (`curCod` ASC) )
+ 
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Tema`
@@ -213,8 +226,16 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`Tema` (
   `temId` INT NOT NULL AUTO_INCREMENT ,
   `temCod` VARCHAR(16) NULL ,
   `temDes` TEXT NULL ,
+  `curId` INT NOT NULL ,
   PRIMARY KEY (`temId`) ,
-  UNIQUE INDEX `temCod_UNIQUE` (`temCod` ASC) )
+  UNIQUE INDEX `temCod_UNIQUE` (`temCod` ASC),
+   INDEX `fk_Tema_Curso1_idx` (`curId` ASC) ,
+  CONSTRAINT `fk_Tema_Curso1`
+    FOREIGN KEY (`curId` )
+    REFERENCES `mydb`.`Curso` (`curId` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  
 ENGINE = InnoDB;
 
 
@@ -242,25 +263,6 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`EjercicioTema` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`Curso`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`Curso` ;
-
-CREATE  TABLE IF NOT EXISTS `mydb`.`Curso` (
-  `curId` INT NOT NULL AUTO_INCREMENT ,
-  `curCod` VARCHAR(16) NOT NULL ,
-  `curDes` TEXT NOT NULL ,
-  `temId` INT NOT NULL ,
-  PRIMARY KEY (`curId`) ,
-  UNIQUE INDEX `curCod_UNIQUE` (`curCod` ASC) ,
-  INDEX `fk_Curso_Tema1_idx` (`temId` ASC) ,
-  CONSTRAINT `fk_Curso_Tema1`
-    FOREIGN KEY (`temId` )
-    REFERENCES `mydb`.`Tema` (`temId` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
