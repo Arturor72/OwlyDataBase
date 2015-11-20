@@ -100,7 +100,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`Nivel` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`Nivel` (
-  `nivId` INT NOT NULL ,
+  `nivId` INT NOT NULL AUTO_INCREMENT ,
   `nivCod` VARCHAR(50) NOT NULL ,
   `nivDes` TEXT NULL ,
   PRIMARY KEY (`nivId`) )
